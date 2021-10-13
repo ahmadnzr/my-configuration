@@ -1,0 +1,27 @@
+# enable loop module
+
+sudo tee /etc/modules-load.d/loop.conf <<< "loop" && \
+modprobe loop
+
+# install stable docker from community repo
+
+sudo pacman -S docker
+
+# start and enable docker
+
+systemctl start docker.service && \
+systemctl enable docker.service
+
+# add user to run docker without root
+
+groupadd docker
+gpasswd -a <username> docker
+
+
+# restart computer
+
+shutdown -r now
+
+# Check instalation
+
+docker info
